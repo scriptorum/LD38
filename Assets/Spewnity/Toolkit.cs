@@ -118,20 +118,20 @@ namespace Spewnity
 			return q * v3;
 		}
 
-		// Shuffles an array in place. Also returns array.
-		public static T[] Shuffle<T>(this T[] arr)
+		// Shuffles an array or list in place. Also returns the input.
+		public static IList<T> Shuffle<T>(this IList<T> ilist)
 		{
-			for(int i = arr.Length - 1; i > 0; i--)
+			for(int i = ilist.Count - 1; i > 0; i--)
 			{
 				int r = Random.Range(0, i + 1);
 				if(r != i)
 				{
-					T tmp = arr[i];
-					arr[i] = arr[r];
-					arr[r] = tmp;
+					T tmp = ilist[i];
+					ilist[i] = ilist[r];
+					ilist[r] = tmp;
 				}
 			}
-			return arr;
+			return ilist;
 		}
 
 		public static int Abs(this int val)
@@ -150,17 +150,10 @@ namespace Spewnity
 			return o.parent.GetFullPath() + "/" + o.name;
 		}
 
-		public static T Rnd<T>(this ICollection<T> collection)
+		public static T Rnd<T>(this IList<T> collection)
 		{
 			Debug.Assert(collection.Count > 0);
 			return collection.ElementAt(Random.Range(0, collection.Count));
-		}
-
-
-		public static T Rnd<T>(this T[] arr)
-		{
-			Debug.Assert(arr.Length > 0);
-			return arr[Random.Range(0, arr.Length)];
 		}
 
 		public static bool CoinFlip()
