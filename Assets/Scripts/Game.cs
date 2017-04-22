@@ -28,7 +28,10 @@ public class Game : MonoBehaviour
 		float halfWidth = Camera.main.orthographicSize * Screen.width / Screen.height;
 		terrainId = 0;
 
-		for(int i = 0; i < (1 + 6 + 12 + 18); i++)
+		// For concentric ring n > 0 (just 1 ball in 0), ball count is n*6 (1, 6, 12, 18...)
+		// So for 4 rings (0-3), count=1+Sum(n=1->3)6n
+
+		for(int i = 0; i < 200; i++)
 		{
 			GameObject prefab = terrains.Rnd();
 			GameObject go = Instantiate(prefab);
