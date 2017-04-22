@@ -13,12 +13,13 @@ public class Cameraman : MonoBehaviour
 	private Vector3 targetPosition;
 	private float targetSize;
 	private Camera camera;
+	private float defaultOrthographicSize;
 
 	void Awake()
 	{
 		stage.ThrowIfNull();
 		camera = gameObject.GetComponent<Camera>();
-
+		defaultOrthographicSize = camera.orthographicSize;
 		targetPosition = transform.position;
 		targetSize = camera.orthographicSize;
 	}
@@ -33,9 +34,18 @@ public class Cameraman : MonoBehaviour
 				bounds.Encapsulate(r.bounds);
 			elapsed = 0;
 
-			targetPosition = bounds.center;
-			targetPosition.z = transform.position.z;
-			targetSize  = bounds.size.y / 2;
+			if(bounds.size.y <= 0.0001)
+			{
+				targetPosition = Vector3.zero;
+				targetPosition.z = transform.position.z;
+				targetSize = defaultOrthographicSize;
+			}
+			else
+			{
+				targetPosition = bounds.center;
+				targetPosition.z = transform.position.z;
+				targetSize  = bounds.size.y / 2;
+			}
 		}
 
 		float rate = Time.deltaTime * speed;

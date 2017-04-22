@@ -31,7 +31,7 @@ public class Game : MonoBehaviour
 		// For concentric ring n > 0 (just 1 ball in 0), ball count is n*6 (1, 6, 12, 18...)
 		// So for 4 rings (0-3), count=1+Sum(n=1->3)6n
 
-		for(int i = 0; i < 200; i++)
+		for(int i = 0; i < 20; i++)
 		{
 			GameObject prefab = terrains.Rnd();
 			GameObject go = Instantiate(prefab);
