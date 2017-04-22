@@ -19,7 +19,6 @@ If you have a LOT of balls, there's a general wobble to the whole thing. Especia
 1. Apply acceleration to the force
 2. Reduce mass. Although this also slows down the balls so you'll have to increase force.
 
-
 ## Solving contiguousness
 How do I detect if two terrains are touching each other?
 
@@ -28,23 +27,33 @@ How do I detect if two terrains are touching each other?
 
 ## Order of terrain
 
-1 forest high  
-2 grass high
-3 savannah high
-4 desert high
-5 tundra high
-6 water high
-7  forest low
-8 grass low
-9 svannah low
-10 destert low
-11 tundra low
-12 water low
-
-
-
-
-
+-1 forest high  
+-2 grass high
+-3 savannah high
+-4 desert high
+-5 tundra high
+-6 water high
+-7 forest low
+-8 grass low
+-9 svannah low
+-10 destert low
+-11 tundra low
+-12 water low
 
 ## TO DO
-[] Fix issue of very close but not touching contacts not counting as contiguous.
+[X] Fix issue of very close but not touching contacts not counting as contiguous.
+[] Music
+[] SFX
+[] Particle effects
+[] Screen shake on big collide
+[] Main menu
+[] Tutorial
+[] Space bg
+[] UI
+[] Game targets
+[] Additional mechanics
+[] Creatures/add-ons
+[] Volcano
+[] Cache instantiated gameobjects for faster replay
+[] Clicking can sometimes result in adjacent object deleted...
+

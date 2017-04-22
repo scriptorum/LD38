@@ -24,16 +24,16 @@ public class Terrain : MonoBehaviour
 		rb.AddForce(force);
 	}
 
-	void OnCollisionEnter2D(Collision2D c)
+	void OnTriggerEnter2D(Collider2D c)
 	{
 		// Debug.Log(gameObject.name + " ENTER");
-		contacts.Add(c.gameObject.GetComponent<Terrain>());
+		contacts.Add(c.transform.parent.GetComponent<Terrain>());
 	}
 
-	void OnCollisionExit2D(Collision2D c)
+	void OnTriggerExit2D(Collider2D c)
 	{
 		// Debug.Log(gameObject.name + " EXIT");
-		contacts.Remove(c.gameObject.GetComponent<Terrain>());
+		contacts.Remove(c.transform.parent.GetComponent<Terrain>());
 	}
 
 	void OnMouseDown()
