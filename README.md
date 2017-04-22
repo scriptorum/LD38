@@ -26,6 +26,23 @@ How do I detect if two terrains are touching each other?
 1. Add a second, larger collider
 2. CHECK Use CollisionEnter and Exit to track who is touching what. This is what I'm currently using, however it has no room for error. Objects that may appear in contact because of overlap will not be actually contacting. Ultimately I'm going to have to resort to something like #1 to fix this issue.
 
+## Order of terrain
+
+1 forest high  
+2 grass high
+3 savannah high
+4 desert high
+5 tundra high
+6 water high
+7  forest low
+8 grass low
+9 svannah low
+10 destert low
+11 tundra low
+12 water low
+
+
+
 
 
 
