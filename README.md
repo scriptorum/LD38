@@ -46,11 +46,11 @@ How do I detect if two terrains are touching each other?
 [X] SFX
 [] Particle effects
 [] Screen shake on big collide
-[] Main menu
+[X] Main men
 [] Tutorial
-[] Space bg
+[X] Space bg
 [] UI
-[] Game targets
+[] Game targets: planet -> dwarf -> centaur -> plutoid -> asteroid -> space garbage
 [] Additional mechanics
 [] Creatures/add-ons
 [] Volcano

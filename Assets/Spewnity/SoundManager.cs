@@ -14,6 +14,8 @@ namespace Spewnity
 		public int minPoolSize = 1;
 		public AudioMixerGroup output;
 		public Sound[] sounds;
+		[Tooltip("If true, maintains one instance of SoundManager that survives scene changes.")]
+		public bool dontDestroy = false;
 
 		private Dictionary<string, int> nameToSound = new Dictionary<string, int>();
 		private List<AudioSource> openPool;
@@ -60,10 +62,21 @@ namespace Spewnity
 
 		void Awake()
 		{
-			if(instance == null) instance = this;
-			else if(instance != this) Destroy(gameObject);
-
-			DontDestroyOnLoad(gameObject);
+			if(dontDestroy || (instance != null && instance.dontDestroy))
+			{
+				if(instance == null) 
+				{
+					instance = this;
+					DontDestroyOnLoad(gameObject);
+					instance.dontDestroy = true;
+				}
+				else if(instance != this) 
+				{
+					Destroy(gameObject);
+					return;
+				}
+			}
+			else instance = this;
 
 			for(int i = 0; i < sounds.Length; i++)
 			{
