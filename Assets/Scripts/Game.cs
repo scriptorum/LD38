@@ -6,6 +6,7 @@ using Spewnity;
 public class Game : MonoBehaviour 
 {
 	public GameObject[] terrains;
+	public Tracker tracker;
 	private Transform stage;
 	private int terrainId;
 
@@ -22,6 +23,7 @@ public class Game : MonoBehaviour
 
 	public void reset()
 	{
+		tracker.reset();
 		stage.DestroyChildren();
 
 		float halfHeight = Camera.main.orthographicSize;
