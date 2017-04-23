@@ -7,23 +7,29 @@ public class Game : MonoBehaviour
 {
 	public GameObject[] terrains;
 	public Tracker tracker;
-	public bool running = false;
 	public MessageBar messageBar;
+	public BombManager bombManager;
+	public bool running = false;
+	public int bombs = 0;
 
 	private Transform stage;
 	private int terrainId;
 	private int terrainAdded = 0;
 	private int terrainRemoved = 0;
 	private int minimumTerrain = 4;
+	private LevelManager levelManager;
 
 	void Awake()
 	{
 		stage = transform.Find("Stage");
 		stage.ThrowIfNull();
+		levelManager = GetComponent<LevelManager>();
+		levelManager.ThrowIfNull();
 	}
 
 	void Start()
 	{
+		levelManager.reset();
 		reset();
 	}
 
@@ -34,16 +40,33 @@ public class Game : MonoBehaviour
 		float pos = (float) terrainRemoved/ (float) removeThreshold;
 		tracker.setPosition(Mathf.Max(pos, 0.0f));
 
+		bombs--;
+		bombManager.setBombs(bombs);
 		if(terrainRemoved >= removeThreshold)
 		{
 			running = false;
-			messageBar.showMessage("World small now! We like small!");
+			messageBar.showMessage(levelManager.getCurrentLevel().winMessage, true);
 		}
-		else messageBar.showMessage("Kill");
+		else if(bombs <= 0)
+		{
+			messageBar.showMessage("No good! You no bombs! We sad.")
+				.queueMessage("We go to SPACE to get more bombs. Press SPACE.", true);
+		}
+		else messageBar.showMessage("Kill"); // Todo come up with random message set
 	}
 
+	public void onSpace()
+	{
+		// Not running? Level is over. Advance to next level.
+		if(!running)
+			levelManager.nextLevel(); 
+		reset();
+	}
+
+	// Reset the current level
 	public void reset()
 	{
+		messageBar.reset();
 		tracker.reset();
 		stage.DestroyChildren();
 
@@ -52,16 +75,21 @@ public class Game : MonoBehaviour
 		terrainId = 0;
 		terrainRemoved = terrainAdded = 0;		
 
-		// For concentric ring n > 0 (just 1 ball in 0), ball count is n*6 (1, 6, 12, 18...)
-		// So for 4 rings (0-3), count=1+Sum(n=1->3)6n
+		Level level = levelManager.getCurrentLevel();
+		List<TerrainType> list = level.getTerrainList();
+		bombs = level.bombs;		
+		bombManager.setBombs(bombs);
 
 		int ring = 0;
 		int count = 0;
 		int max = 1;
 		float ringSize = 0.666f;
-		for(int i = 0; i < 1+6+12+18+24; i++)
+
+		foreach(TerrainType type in list)
 		{
-			GameObject prefab = terrains.Rnd();
+			GameObject prefab = (type == TerrainType.Random ? 
+				terrains.Rnd() : terrains[(int) type]);
+			
 			GameObject go = Instantiate(prefab);
 			go.name = prefab.name + terrainId++;
 			go.transform.parent = stage;
@@ -81,6 +109,6 @@ public class Game : MonoBehaviour
 		}
 
 		running = true;
-		messageBar.showMessage("What?! World too big! Make small!");
+		messageBar.showMessage(level.startMessage, level.holdStartMesage);
 	}
 }

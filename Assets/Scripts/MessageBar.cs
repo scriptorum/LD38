@@ -28,19 +28,35 @@ public class MessageBar : MonoBehaviour
 		groupRT.anchoredPosition = new Vector2(0, pos);
 	}
 
-	public void showMessage(string msg)
+	public void reset()
 	{
-		setMessage(msg);
-
 		aq.Cancel();
 		aq.Clear();
-		
-		aq.AddCoroutine(outsideY.LerpFloat(insideY, speed, (f)=>moveGroup(f), curve));
-		aq.Delay(speed);
-		aq.Delay(pause);
-		aq.AddCoroutine(insideY.LerpFloat(outsideY, speed, (f)=>moveGroup(f), curve));
-		aq.Delay(speed);
+	}
+
+	// If you supply hold = true, call reset() to clear the message, or just call this again
+	public MessageBar showMessage(string msg, bool hold = false)
+	{
+		reset();
+		queueMessage(msg, hold);
 		aq.Run();
+		return this;
+	}
+
+	// After clearing the last message, you can then queue up another message
+	public MessageBar queueMessage(string msg, bool hold = false)
+	{
+		aq.Add(() => setMessage(msg));
+		aq.AddCoroutine(outsideY.LerpFloat(insideY, speed, (f)=>moveGroup(f), curve));
+		if(!hold)
+		{
+			aq.Delay(speed);
+			aq.Delay(pause);
+			aq.AddCoroutine(insideY.LerpFloat(outsideY, speed, (f)=>moveGroup(f), curve));
+			aq.Delay(speed);
+		}
+		
+		return this;
 	}
 
 	private void setMessage(string msg)

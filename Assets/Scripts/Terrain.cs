@@ -47,7 +47,7 @@ public class Terrain : MonoBehaviour
 
 	void OnMouseDown()
 	{
-		if(!game.running)
+		if(!game.running || game.bombs <= 0)
 			return;
 
 		// Find all contiguously adjacent matching contacts 
@@ -103,5 +103,6 @@ public enum TerrainType
 	Grass,
 	Savannah,
 	Tundra,
-	Water
+	Water, 
+	Random
 }

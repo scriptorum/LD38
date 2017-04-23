@@ -47,18 +47,23 @@ How do I detect if two terrains are touching each other?
 [X] Space bg
 [X] UI
 [X] Game targets: planet -> dwarf -> centaur -> plutoid -> asteroid -> space garbage
-[] Messge bar!
-[] Levels!
-[] Music
-[] Particle effects
+[X] Messge bar!
+[X] Click to advance
 [X] Tracker bar isn't always visible!
+[X] Cameraman is over zooming
+[] Levels!
+[] Tutorial
+[] End game check
+[] Q return to main menu
+[] Music
+[] Drop bomb?
+[] Particle effects
+[] Level creation effect
 [] Screen shake on big collide
 [] Clicking can sometimes result in adjacent object deleted Only happens close to edges
 [] Additional mechanics
 [] Creatures/add-ons
 [] Volcano
-[] Cameraman is over zooming
-[] Tutorial
 [] Cache instantiated gameobjects for faster replay
 
 
