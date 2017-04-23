@@ -32,6 +32,7 @@ public class MessageBar : MonoBehaviour
 	{
 		aq.Cancel();
 		aq.Clear();
+		moveGroup(outsideY);
 	}
 
 	// If you supply hold = true, call reset() to clear the message, or just call this again

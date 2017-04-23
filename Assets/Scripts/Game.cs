@@ -53,7 +53,8 @@ public class Game : MonoBehaviour
 			messageBar.showMessage("No good! You no bombs! We sad.")
 				.queueMessage("We go to SPACE to get more bombs. Press SPACE.", true);
 		}
-		else messageBar.showMessage("Kill"); // Todo come up with random message set
+		else messageBar.reset();
+		// else messageBar.showMessage("Kill"); // Todo come up with random message set
 	}
 
 	public void onSpace()
@@ -89,7 +90,7 @@ public class Game : MonoBehaviour
 		int ring = 0;
 		int count = 0;
 		int max = 1;
-		float ringSize = 0.666f;
+		float ringSize = 0.68f;
 
 		foreach(TerrainType type in list)
 		{
@@ -104,8 +105,8 @@ public class Game : MonoBehaviour
 			float radians = ((float) count / (float) max) * Mathf.PI * 2.0f;
 			float zed = (int) type * 0.01f;
 			Vector3 pos = new Vector3(Mathf.Cos(radians) * magnitude, Mathf.Sin(radians) * magnitude, zed);
-			pos.x += Random.Range(-jostleAmount, jostleAmount);
-			pos.y += Random.Range(-jostleAmount, jostleAmount);
+			// pos.x += Random.Range(-jostleAmount, jostleAmount);
+			// pos.y += Random.Range(-jostleAmount, jostleAmount);
 			go.transform.position = pos;
 			terrainAdded++;
 

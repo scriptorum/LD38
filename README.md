@@ -55,15 +55,17 @@ How do I detect if two terrains are touching each other?
 [X] Random levels
 [X] Clicking can sometimes result in adjacent object deleted Only happens close to edges
 [X] Random adjustment to piece placement to avoid perfectly symmetrical lockups
-[] Main levels
+[X] Main levels/Tutorial
 [] Music
 [] Particle effects
+[] Random messages when you bomb
 [] Level creation effect
 [] Screen shake on big collide
 [] Q return to main menu
 [] Drop bomb?
 [] Additional mechanics
 [] Creatures/add-ons
+[] If restart on random level, use same random level?
 [] Volcano
 [] Cache instantiated gameobjects for faster replay
 

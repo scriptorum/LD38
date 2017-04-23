@@ -29,11 +29,11 @@ public class LevelManager : MonoBehaviour
 		if(++levelNum >= levels.Length)
 		{
 			level = new Level();
-			level.startMessage = "World " + levelNum + " too big! You small it!";
-			level.winMessage = "You wins again.";
 			int numParts = 5 * levelNum;
 			level.bombs = numParts / 4;
 			level.terrainList = new string('6', numParts);
+			level.startMessage = "World " + levelNum + ". "  + level.bombs +  " bombs allotted.";
+			level.winMessage = "Success. Plotting another course...";
 		}
 		else level = levels[levelNum];
 
