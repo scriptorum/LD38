@@ -32,6 +32,7 @@ namespace Spewnity
 				sound.volume = 1f;
 				sound.pitch = 1f;
 				sound.usePool = true;
+				sound.multi = SoundMulti.Multiple;
 				soundsInitialized = true;
 			}
 
@@ -154,11 +155,15 @@ namespace Spewnity
 		{
 			if(sound.clips.Length <= 0) throw new UnityException("Cannot play sound '" + name + "': no AudioClips defined");
 
-			int clipId = Random.Range(0, sound.clips.Length);
-			AudioClip clip = sound.clips[clipId];
-			if(clip == null) throw new UnityException("Cannot play sound '" + name + "': clip '" + clipId + "' not defined");
+			// Do not play over sound already playing if Multi = Deny
+			if(sound.multi == SoundMulti.Deny && sound.source != null && sound.source.isPlaying)
+				return sound;
 
-			if(sound.usePool)
+			// Stop old sound and replace with new sound if sound already playing and Multi = TakeOver
+			if(sound.multi == SoundMulti.TakeOver && sound.source != null && sound.source.isPlaying)
+				sound.source.Stop();
+
+			else if(sound.usePool)
 			{
 				if(openPool.Count == 0)
 				{
@@ -168,6 +173,10 @@ namespace Spewnity
 				openPool.RemoveAt(0);
 				busyPool.Add(sound.source);
 			}
+
+			int clipId = Random.Range(0, sound.clips.Length);
+			AudioClip clip = sound.clips[clipId];
+			if(clip == null) throw new UnityException("Cannot play sound '" + name + "': clip '" + clipId + "' not defined");
 
 			if(sound.source == null) throw new UnityException("Cannot play sound '" + name + "': no AudioSource connected");
 
@@ -289,6 +298,10 @@ namespace Spewnity
 		[Tooltip("If true, uses internal audio source pooling. If false, generates its own audio source. Ignored if a custom audio source is supplied.")]
 		public bool usePool;
 
+
+		[Tooltip("Controls behavior when same sound is playing: Multiple (allow multiples), TakeOver (new sound replaces current), Deny (new sound is denied)")]
+		public SoundMulti multi;		
+
 		[Tooltip("If nonzero, delays the next playing of the sound by this number of second. This property is then reset to 0.")]
 		[HideInInspector]
 		public float delay;
@@ -296,5 +309,16 @@ namespace Spewnity
 		[Tooltip("If usePool is false and this is supplied, will use this custom Audio Source.")]
 		public AudioSource source;
 	}
+
+
+	[System.Serializable]
+	public enum SoundMulti
+	{
+		Multiple,
+		TakeOver,
+		Deny
+	}
 }
+
+
 

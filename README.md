@@ -36,14 +36,14 @@ How do I detect if two terrains are touching each other?
 -7 forest low
 -8 grass low
 -9 svannah low
--10 destert low
+-10 desert low
 -11 tundra low
 -12 water low
 
 ## TO DO
 [X] Fix issue of very close but not touching contacts not counting as contiguous.
 [] Music
-[] SFX
+[X] SFX
 [] Particle effects
 [] Screen shake on big collide
 [] Main menu
@@ -55,5 +55,17 @@ How do I detect if two terrains are touching each other?
 [] Creatures/add-ons
 [] Volcano
 [] Cache instantiated gameobjects for faster replay
-[] Clicking can sometimes result in adjacent object deleted...
+[] Clicking can sometimes result in adjacent object deleted Only happens close to edges
 
+
+## SFX List
+[X] Water: Splashes, drop
+[X] Savannah: Rustle, wind
+[X] Forest: creak, wind, leaves
+[X] Tundra: woosh, ice crack
+[X] Desert: Shake, granules pelting
+[X] Grass: Thud, rustle
+[X] Click
+[X] New planet sound
+[] Failure
+[] Victory

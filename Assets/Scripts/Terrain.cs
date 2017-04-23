@@ -8,6 +8,7 @@ public class Terrain : MonoBehaviour
 	public TerrainType type;
 	private Rigidbody2D rb;
 	private List<Terrain> contacts = new List<Terrain>();
+	private static float SFX_IMPACT_MIN = 0.5f;
 
 	void Awake()
 	{
@@ -24,9 +25,14 @@ public class Terrain : MonoBehaviour
 		rb.AddForce(force);
 	}
 
+	void OnCollisionEnter2D(Collision2D c)
+	{
+		if(c.relativeVelocity.magnitude > SFX_IMPACT_MIN)
+			SoundManager.instance.Play(type.ToString());
+	}
+
 	void OnTriggerEnter2D(Collider2D c)
 	{
-		// Debug.Log(gameObject.name + " ENTER");
 		contacts.Add(c.transform.parent.GetComponent<Terrain>());
 	}
 
@@ -49,6 +55,8 @@ public class Terrain : MonoBehaviour
 			debugTerrainList(matches);
 			return;
 		}
+
+		SoundManager.instance.Play("clink");
 
 		// Remove matching terrain
 		foreach(Terrain t in matches)
