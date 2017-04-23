@@ -44,7 +44,7 @@ public class Cameraman : MonoBehaviour
 			{
 				targetPosition = bounds.center;
 				targetPosition.z = transform.position.z;
-				targetSize  = bounds.size.y / 2;
+				targetSize  = bounds.size.y / 2; // Known issue: assumes shape not (much) wider than tall
 			}
 		}
 
