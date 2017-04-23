@@ -8,6 +8,7 @@ public class Cameraman : MonoBehaviour
 	public GameObject stage;
 	public float checkFrequency = 0;
 	public float speed = 0;
+	public float zoomBorder = 0.2f;
 
 	private float elapsed = 0;
 	private Vector3 targetPosition;
@@ -34,7 +35,10 @@ public class Cameraman : MonoBehaviour
 				bounds.Encapsulate(r.bounds);
 			elapsed = 0;
 
-			if(bounds.size.y <= 0.0001)
+			// Known issue: assumes shape not (much) wider than tall
+			targetSize  = (bounds.size.y  + zoomBorder) / 2f; 
+
+			if(targetSize <= 0.01f)
 			{
 				targetPosition = Vector3.zero;
 				targetPosition.z = transform.position.z;
@@ -44,7 +48,6 @@ public class Cameraman : MonoBehaviour
 			{
 				targetPosition = bounds.center;
 				targetPosition.z = transform.position.z;
-				targetSize  = bounds.size.y / 2; // Known issue: assumes shape not (much) wider than tall
 			}
 		}
 
