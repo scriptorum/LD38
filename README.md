@@ -47,6 +47,8 @@ How do I detect if two terrains are touching each other?
 [X] Space bg
 [X] UI
 [X] Game targets: planet -> dwarf -> centaur -> plutoid -> asteroid -> space garbage
+[] Messge bar!
+[] Levels!
 [] Music
 [] Particle effects
 [X] Tracker bar isn't always visible!

@@ -8,6 +8,7 @@ public class Game : MonoBehaviour
 	public GameObject[] terrains;
 	public Tracker tracker;
 	public bool running = false;
+	public MessageBar messageBar;
 
 	private Transform stage;
 	private int terrainId;
@@ -36,8 +37,9 @@ public class Game : MonoBehaviour
 		if(terrainRemoved >= removeThreshold)
 		{
 			running = false;
-			Debug.Log("Game Over");
+			messageBar.showMessage("World small now! We like small!");
 		}
+		else messageBar.showMessage("Kill");
 	}
 
 	public void reset()
@@ -79,5 +81,6 @@ public class Game : MonoBehaviour
 		}
 
 		running = true;
+		messageBar.showMessage("What?! World too big! Make small!");
 	}
 }
