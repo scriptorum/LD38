@@ -42,20 +42,22 @@ How do I detect if two terrains are touching each other?
 
 ## TO DO
 [X] Fix issue of very close but not touching contacts not counting as contiguous.
-[] Music
 [X] SFX
-[] Particle effects
-[] Screen shake on big collide
 [X] Main men
-[] Tutorial
 [X] Space bg
-[] UI
-[] Game targets: planet -> dwarf -> centaur -> plutoid -> asteroid -> space garbage
+[X] UI
+[X] Game targets: planet -> dwarf -> centaur -> plutoid -> asteroid -> space garbage
+[] Music
+[] Particle effects
+[X] Tracker bar isn't always visible!
+[] Screen shake on big collide
+[] Clicking can sometimes result in adjacent object deleted Only happens close to edges
 [] Additional mechanics
 [] Creatures/add-ons
 [] Volcano
+[] Cameraman is over zooming
+[] Tutorial
 [] Cache instantiated gameobjects for faster replay
-[] Clicking can sometimes result in adjacent object deleted Only happens close to edges
 
 
 ## SFX List

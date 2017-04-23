@@ -43,8 +43,6 @@ public class Tracker : MonoBehaviour
 			mark.enabled = false;
 
 		planet.enabled = true;
-		
-		setPosition(1.0f);
 	}
 
 	// Gradually sets position of pointer

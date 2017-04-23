@@ -9,6 +9,7 @@ public class Terrain : MonoBehaviour
 	private Rigidbody2D rb;
 	private List<Terrain> contacts = new List<Terrain>();
 	private static float SFX_IMPACT_MIN = 0.5f;
+	private Game game;
 
 	void Awake()
 	{
@@ -17,6 +18,8 @@ public class Terrain : MonoBehaviour
 
 		if(!gameObject.name.StartsWith("Terrain" + type.ToString()))
 			throw new UnityException(gameObject.name + " is of unexpected type " + type.ToString());
+
+		game = GameObject.Find("/Game").GetComponent<Game>();
 	}
 
 	void Update () 
@@ -44,6 +47,9 @@ public class Terrain : MonoBehaviour
 
 	void OnMouseDown()
 	{
+		if(!game.running)
+			return;
+
 		// Find all contiguously adjacent matching contacts 
 		List<Terrain> matches = new List<Terrain>();
 		matches.Add(this);
@@ -61,6 +67,9 @@ public class Terrain : MonoBehaviour
 		// Remove matching terrain
 		foreach(Terrain t in matches)
 			GameObject.Destroy(t.gameObject);
+
+		// No point caching this
+		game.onTerrainRemoved(matches.Count);
 	}
 
 	// Recursively return contacts that match this terrain
