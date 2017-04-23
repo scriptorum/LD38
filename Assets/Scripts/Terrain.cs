@@ -20,6 +20,8 @@ public class Terrain : MonoBehaviour
 			throw new UnityException(gameObject.name + " is of unexpected type " + type.ToString());
 
 		game = GameObject.Find("/Game").GetComponent<Game>();
+
+		Vector3 pos = transform.position;
 	}
 
 	void Update () 
@@ -45,7 +47,7 @@ public class Terrain : MonoBehaviour
 		contacts.Remove(c.transform.parent.GetComponent<Terrain>());
 	}
 
-	void OnMouseDown()
+	public void OnMouseDown()
 	{
 		if(!game.running || game.bombs <= 0)
 			return;
@@ -98,10 +100,10 @@ public class Terrain : MonoBehaviour
 
 public enum TerrainType
 {
-	Desert,
 	Forest,
 	Grass,
 	Savannah,
+	Desert,
 	Tundra,
 	Water, 
 	Random

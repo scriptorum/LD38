@@ -18,6 +18,7 @@ public class Game : MonoBehaviour
 	private int terrainRemoved = 0;
 	private int minimumTerrain = 4;
 	private LevelManager levelManager;
+	private float jostleAmount  = 0.1f;
 
 	void Awake()
 	{
@@ -77,8 +78,6 @@ public class Game : MonoBehaviour
 		tracker.reset();
 		stage.DestroyChildren();
 
-		float halfHeight = Camera.main.orthographicSize;
-		float halfWidth = Camera.main.orthographicSize * Screen.width / Screen.height;
 		terrainId = 0;
 		terrainRemoved = terrainAdded = 0;		
 
@@ -100,11 +99,13 @@ public class Game : MonoBehaviour
 			GameObject go = Instantiate(prefab);
 			go.name = prefab.name + terrainId++;
 			go.transform.parent = stage;
-			// go.transform.position = new Vector3(Random.Range(-halfWidth, halfWidth), Random.Range(-halfHeight, halfHeight));
 
 			float magnitude = ringSize * ring;
 			float radians = ((float) count / (float) max) * Mathf.PI * 2.0f;
-			Vector3 pos = new Vector3(Mathf.Cos(radians) * magnitude, Mathf.Sin(radians) * magnitude, 0);
+			float zed = (int) type * 0.01f;
+			Vector3 pos = new Vector3(Mathf.Cos(radians) * magnitude, Mathf.Sin(radians) * magnitude, zed);
+			pos.x += Random.Range(-jostleAmount, jostleAmount);
+			pos.y += Random.Range(-jostleAmount, jostleAmount);
 			go.transform.position = pos;
 			terrainAdded++;
 

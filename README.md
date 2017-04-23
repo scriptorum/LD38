@@ -28,16 +28,16 @@ How do I detect if two terrains are touching each other?
 ## Order of terrain
 
 -1 forest high  
--2 grass high
--3 savannah high
--4 desert high
--5 tundra high
--6 water high
--7 forest low
--8 grass low
--9 svannah low
--10 desert low
--11 tundra low
+-2 forest low
+-3 grass high
+-4 grass low
+-5 savannah high
+-6 svannah low
+-7 desert high
+-8 desert low
+-9 tundra high
+-10 tundra low
+-11 water high
 -12 water low
 
 ## TO DO
@@ -53,11 +53,10 @@ How do I detect if two terrains are touching each other?
 [X] Cameraman is over zooming
 [X] Bomb display
 [X] Random levels
+[X] Clicking can sometimes result in adjacent object deleted Only happens close to edges
+[X] Random adjustment to piece placement to avoid perfectly symmetrical lockups
 [] Main levels
-[] Clicking can sometimes result in adjacent object deleted Only happens close to edges
-[] End game check
 [] Music
-[] Random adjustment to piece placement to avoid perfectly symmetrical lockups
 [] Particle effects
 [] Level creation effect
 [] Screen shake on big collide

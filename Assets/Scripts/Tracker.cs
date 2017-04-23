@@ -15,7 +15,6 @@ public class Tracker : MonoBehaviour
 	private Image spacejunk;
 	private float range;
 	private float startX, endX;
-	private ActionQueue aq;
 	private int maxMark;
 	private float current;
 
@@ -27,7 +26,6 @@ public class Tracker : MonoBehaviour
 		startX = planet.transform.localPosition.x;
 		endX = spacejunk.transform.localPosition.x;
 		range = endX - startX;
-		aq = gameObject.AddComponent<ActionQueue>();
 
 		reset();
 	}
