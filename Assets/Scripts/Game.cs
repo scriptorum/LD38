@@ -63,6 +63,13 @@ public class Game : MonoBehaviour
 		reset();
 	}
 
+	// Super secret cheat
+	public void onSkip()
+	{
+		levelManager.nextLevel();
+		reset();
+	}
+
 	// Reset the current level
 	public void reset()
 	{

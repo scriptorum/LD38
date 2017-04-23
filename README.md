@@ -51,16 +51,18 @@ How do I detect if two terrains are touching each other?
 [X] Click to advance
 [X] Tracker bar isn't always visible!
 [X] Cameraman is over zooming
-[] Levels!
-[] Tutorial
+[X] Bomb display
+[X] Random levels
+[] Main levels
+[] Clicking can sometimes result in adjacent object deleted Only happens close to edges
 [] End game check
-[] Q return to main menu
 [] Music
-[] Drop bomb?
+[] Random adjustment to piece placement to avoid perfectly symmetrical lockups
 [] Particle effects
 [] Level creation effect
 [] Screen shake on big collide
-[] Clicking can sometimes result in adjacent object deleted Only happens close to edges
+[] Q return to main menu
+[] Drop bomb?
 [] Additional mechanics
 [] Creatures/add-ons
 [] Volcano

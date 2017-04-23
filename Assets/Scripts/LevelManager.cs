@@ -4,27 +4,40 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour 
 {
-	private int level = 0;
+	private int levelNum = 0;
 	public Level[] levels;
+	public Level level;
+
+	public void Awake()
+	{
+		level = levels[0];
+	}
 
 	public void reset()
 	{
-		level = 0;
+		levelNum = 0;
 	}
 
 	// Gets the current level
 	public Level getCurrentLevel()
 	{
-		Level l = levels[level];
-		l.lastLevel = level >= levels.Length - 1;
-		return l;
+		return level;
 	}
 
 	public Level nextLevel()
 	{
-		if(++level >= levels.Length)
-			throw new UnityException("Cannot advance to level " + level);
-		return getCurrentLevel();
+		if(++levelNum >= levels.Length)
+		{
+			level = new Level();
+			level.startMessage = "World " + levelNum + " too big! You small it!";
+			level.winMessage = "You wins again.";
+			int numParts = 5 * levelNum;
+			level.bombs = numParts / 4;
+			level.terrainList = new string('6', numParts);
+		}
+		else level = levels[levelNum];
+
+		return level;			
 	}
 }
 
@@ -37,9 +50,6 @@ public struct Level
 	public int bombs;
 	public bool holdStartMesage;
 	
-	[HideInInspector]
-	public bool lastLevel;
-
 	public List<TerrainType> getTerrainList()
 	{
 		List<TerrainType> list = new List<TerrainType>();
