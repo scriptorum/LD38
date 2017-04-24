@@ -1,5 +1,5 @@
 # Your Planet: Too Big
-Ludum Dare 38 Compo entry
+This is the postcompo version of my Ludum Dare 38 Compo entry. If you want the original compo version, go here: https://github.com/scriptorum/LD38/tree/compo
 
 > *The alien council has determined your planet is too big!*
 
