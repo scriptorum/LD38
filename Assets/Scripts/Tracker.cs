@@ -32,6 +32,8 @@ public class Tracker : MonoBehaviour
 
 	public void reset()
 	{
+		StopAllCoroutines();
+		
 		current = 0;
 		lastMark = 0;
 
