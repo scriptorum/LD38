@@ -69,6 +69,8 @@ How do I detect if two terrains are touching each other?
 [] Volcano
 [] Cache instantiated gameobjects for faster replay
 
+## BUGS
+[] Moving onto next plevel too fast doesn't properly reset the tracker
 
 ## SFX List
 [X] Water: Splashes, drop
