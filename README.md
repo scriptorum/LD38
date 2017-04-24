@@ -56,7 +56,7 @@ How do I detect if two terrains are touching each other?
 [X] Clicking can sometimes result in adjacent object deleted Only happens close to edges
 [X] Random adjustment to piece placement to avoid perfectly symmetrical lockups
 [X] Main levels/Tutorial
-[] Music
+[X] Music
 [] Particle effects
 [] Random messages when you bomb
 [] Level creation effect

@@ -11,6 +11,11 @@ public class Intro : MonoBehaviour
 	public SpriteRenderer fadeCurtain;
 	public UnityEngine.UI.Button button;      
 
+	void Start()
+	{
+		SoundManager.instance.Play("theme");
+	}
+
 
 	public void startGame()
 	{

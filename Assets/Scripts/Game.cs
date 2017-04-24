@@ -47,11 +47,13 @@ public class Game : MonoBehaviour
 		{
 			running = false;
 			messageBar.showMessage(levelManager.getCurrentLevel().winMessage, true);
+			SoundManager.instance.Play("victory");
 		}
 		else if(bombs <= 0)
 		{
 			messageBar.showMessage("No good! You no bombs! We sad.")
 				.queueMessage("We go to SPACE to get more bombs. Press SPACE.", true);
+			SoundManager.instance.Play("fail");
 		}
 		else messageBar.reset();
 		// else messageBar.showMessage("Kill"); // Todo come up with random message set
