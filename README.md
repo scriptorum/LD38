@@ -57,7 +57,7 @@ How do I detect if two terrains are touching each other?
 [X] Random adjustment to piece placement to avoid perfectly symmetrical lockups
 [X] Main levels/Tutorial
 [X] Music
-[] Particle effects
+[X] Particle effects
 [] Random messages when you bomb
 [] Level creation effect
 [] Screen shake on big collide

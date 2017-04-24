@@ -6,6 +6,8 @@ using Spewnity;
 public class Terrain : MonoBehaviour 
 {
 	public TerrainType type;
+	public ParticleSystem fx;
+
 	private Rigidbody2D rb;
 	private List<Terrain> contacts = new List<Terrain>();
 	private static float SFX_IMPACT_MIN = 0.5f;
@@ -68,10 +70,16 @@ public class Terrain : MonoBehaviour
 
 		// Remove matching terrain
 		foreach(Terrain t in matches)
-			GameObject.Destroy(t.gameObject);
+			t.explode();
 
 		// No point caching this
 		game.onTerrainRemoved(matches.Count);
+	}
+
+	public void explode()
+	{
+		 Instantiate(fx, transform.position, Quaternion.identity);
+		GameObject.Destroy(gameObject);
 	}
 
 	// Recursively return contacts that match this terrain
