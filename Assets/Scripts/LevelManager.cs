@@ -31,7 +31,9 @@ public class LevelManager : MonoBehaviour
 			level = new Level();
 			int numParts = 5 * levelNum;
 			level.bombs = numParts / 4;
-			level.terrainList = new string('6', numParts);
+			level.terrainList = "";
+			for(int i = 0; i < numParts; i++)
+				level.terrainList += Random.Range(0, 6).ToString();
 			level.startMessage = "World " + levelNum + ". "  + level.bombs +  " bombs allotted.";
 			level.winMessage = "Success. Plotting another course...";
 		}
