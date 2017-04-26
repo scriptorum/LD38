@@ -20,4 +20,5 @@ This is a twist on the game of Collapse, with central gravity. Click on any part
 ### Late Bug Fixes
 :heavy_check_mark: Ding volume is supposed to be lower, instead of irritatingly loud  
 :heavy_check_mark: Tracker bar highlights get messed up if you start next level before pointer completes movement  
-:heavy_check_mark: Replaying a random mission (level 10+) should reset the original level, not re-randomize
+:heavy_check_mark: Replaying a random mission (level 10+) should reset the original level, not re-randomize  
+:heavy_check_mark: Bombs get misaligned when switching to fullscreen
