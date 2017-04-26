@@ -1,5 +1,5 @@
 # Your Planet: Too Big
-This is the postcompo version of my Ludum Dare 38 Compo entry. If you want the original compo version, go here: https://github.com/scriptorum/LD38/tree/compo
+This is the postcompo version of my Ludum Dare 38 Compo entry. If you want the original compo version, go here: https://github.com/scriptorum/LD38/tree/compo.
 
 > *The alien council has determined your planet is too big!*
 
@@ -17,7 +17,5 @@ This is a twist on the game of Collapse, with central gravity. Click on any part
 **Spacebar:** Continue to next level or restart current level.  
 **Right square bracket:** Skip level, you little cheat.
 
-### Late Bug Fixes
-:heavy_check_mark: Ding volume is supposed to be lower, instead of irritatingly loud  
-:heavy_check_mark: Tracker bar highlights get messed up if you start next level before pointer completes movement  
-:heavy_check_mark: Replaying a random mission (level 10+) should reset the original level, not re-randomize
+### Notable differences from compo version
+* None yet :)
