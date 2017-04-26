@@ -5,23 +5,19 @@ using Spewnity;
 
 public class BombManager : MonoBehaviour 
 {
-	public GameObject prefab;
-	public List<Transform> bombs;
-	private Vector3 guidePosition;
-	private Vector3 guideScale;
+	public GameObject bombPrefab;
+	public List<GameObject> bombs;
+	private Vector2 guide;
 	private float spacing = 10f;
 
 	public void Awake()
 	{
-		Transform guide = transform.Find("BombGuide");
-		guide.ThrowIfNull();
-		guidePosition = guide.localPosition;
-		guideScale = guide.localScale;
+		guide = transform.Find("BombGuide").GetComponent<RectTransform>().anchoredPosition;
 	}
 
 	public void reset()
 	{
-		foreach(Transform bomb in bombs)
+		foreach(GameObject bomb in bombs)
 			Destroy(bomb.gameObject);
 		bombs.Clear();
 	}
@@ -38,14 +34,15 @@ public class BombManager : MonoBehaviour
 		{
 			while(bombs.Count < count)
 			{
-				GameObject go = Instantiate(prefab);
+				GameObject go = Instantiate(bombPrefab, bombPrefab.transform.position, bombPrefab.transform.rotation);				
+				go.transform.SetParent(transform, false);
 				go.name = "Bomb" + bombs.Count;
-				go.transform.SetParent(transform);
-				Vector3 pos = guidePosition;
+
+				Vector2 pos = guide;
 				pos.x += spacing * bombs.Count;
-				go.transform.localPosition = pos; 
-				go.transform.localScale = guideScale;
-				bombs.Add(go.transform);
+				go.GetComponent<RectTransform>().anchoredPosition = pos;
+
+				bombs.Add(go);
 			}
 		}
 
@@ -54,9 +51,9 @@ public class BombManager : MonoBehaviour
 		{
 			while(bombs.Count > count)
 			{
-				Transform lastBomb = bombs[bombs.Count - 1];
+				GameObject lastBomb = bombs[bombs.Count - 1];
 				bombs.Remove(lastBomb);
-				Destroy(lastBomb.gameObject);
+				Destroy(lastBomb);
 			}
 		}
 	}
