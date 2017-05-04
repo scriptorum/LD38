@@ -29,8 +29,13 @@ public class LevelManager : MonoBehaviour
 		if(++levelNum >= levels.Length)
 		{
 			level = new Level();
-			int numParts = 5 * levelNum;
-			level.bombs = numParts / 4;
+			level.bombs = (int) (levelNum * 1.25f);
+			int numParts = (int) (4f * level.bombs);
+
+			// Early missions are hard, here's an extra bomb
+			if(levelNum <= 14)
+				level.bombs++;
+
 			level.terrainList = "";
 			for(int i = 0; i < numParts; i++)
 				level.terrainList += Random.Range(0, 6).ToString();

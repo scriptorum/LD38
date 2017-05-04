@@ -26,7 +26,7 @@ public class Terrain : MonoBehaviour
 		Vector3 pos = transform.position;
 	}
 
-	void Update () 
+	void FixedUpdate () 
 	{
 		Vector3 force = Vector3.zero - transform.position;
 		rb.AddForce(force);
