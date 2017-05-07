@@ -5,13 +5,14 @@ using Spewnity;
 
 public class Game : MonoBehaviour 
 {
-	public GameObject[] terrains;
+	public GameObject prefab;
 	public Tracker tracker;
 	public MessageBar messageBar;
 	public BombManager bombManager;
 	public bool running = false;
 	public int bombs = 0;
 
+	private TerrainCatalog catalog;
 	private Transform stage;
 	private int terrainId;
 	private int terrainAdded = 0;
@@ -26,6 +27,8 @@ public class Game : MonoBehaviour
 		stage.ThrowIfNull();
 		levelManager = GetComponent<LevelManager>();
 		levelManager.ThrowIfNull();
+		catalog = gameObject.GetComponent<TerrainCatalog>();
+		catalog.ThrowIfNull();
 	}
 
 	void Start()
@@ -96,12 +99,11 @@ public class Game : MonoBehaviour
 
 		foreach(TerrainType type in list)
 		{
-			GameObject prefab = (type == TerrainType.Random ? 
-				terrains.Rnd() : terrains[(int) type]);
-			
 			GameObject go = Instantiate(prefab);
 			go.name = prefab.name + terrainId++;
 			go.transform.parent = stage;
+			Terrain terrain = go.GetComponent<Terrain>();
+			terrain.init(catalog.GetTerrainByType(type));
 
 			float magnitude = ringSize * ring;
 			float radians = ((float) count / (float) max) * Mathf.PI * 2.0f;

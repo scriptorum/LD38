@@ -5,9 +5,9 @@ using Spewnity;
 
 public class Terrain : MonoBehaviour 
 {
-	public TerrainType type;
 	public ParticleSystem fx;
 
+	private TerrainData data;
 	private Rigidbody2D rb;
 	private List<Terrain> contacts = new List<Terrain>();
 	private static float SFX_IMPACT_MIN = 0.5f;
@@ -15,16 +15,23 @@ public class Terrain : MonoBehaviour
 
 	void Awake()
 	{
+		enabled = false;
+	}
+
+	public void init(TerrainData data)
+	{
+		this.data = data;
+		SpriteRenderer sr = gameObject.GetComponent<SpriteRenderer>();
+		sr.sprite = data.sprite;
+
 		rb = gameObject.GetComponent<Rigidbody2D>();
 		rb.ThrowIfNull();
 
-		if(!gameObject.name.StartsWith("Terrain" + type.ToString()))
-			throw new UnityException(gameObject.name + " is of unexpected type " + type.ToString());
-
 		game = GameObject.Find("/Game").GetComponent<Game>();
+		game.ThrowIfNull();
 
-		Vector3 pos = transform.position;
-	}
+		enabled = true;
+}
 
 	void FixedUpdate () 
 	{
@@ -35,7 +42,7 @@ public class Terrain : MonoBehaviour
 	void OnCollisionEnter2D(Collision2D c)
 	{
 		if(c.relativeVelocity.magnitude > SFX_IMPACT_MIN)
-			SoundManager.instance.Play(type.ToString());
+			SoundManager.instance.Play(data.type.ToString());
 	}
 
 	void OnTriggerEnter2D(Collider2D c)
@@ -87,7 +94,7 @@ public class Terrain : MonoBehaviour
 	public void getMatches(List<Terrain> matches)
 	{
 		foreach(Terrain t in contacts)
-			if(t.type == type && !matches.Contains(t)) 
+			if(t.data.type == data.type && !matches.Contains(t)) 
 			{
 				matches.Add(t);
 				t.getMatches(matches);
@@ -104,15 +111,4 @@ public class Terrain : MonoBehaviour
 
 		Debug.Log(gameObject.name + " -> " + list.Count +  " Contact" + (list.Count == 1 ? "" : "s") + " -> " + string.Join(",", str));
 	}
-}
-
-public enum TerrainType
-{
-	Forest,
-	Grass,
-	Savannah,
-	Desert,
-	Tundra,
-	Water, 
-	Random
 }
