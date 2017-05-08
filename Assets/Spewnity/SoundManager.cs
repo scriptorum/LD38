@@ -8,6 +8,7 @@ namespace Spewnity
 {
 	public class SoundManager : MonoBehaviour
 	{
+		public const float SEMITONE = 1.0594630943592952646f;
 		public static SoundManager instance = null;
 
 		public int maxPoolSize = 32;
