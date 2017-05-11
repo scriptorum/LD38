@@ -29,15 +29,19 @@ public class TerrainCatalog : MonoBehaviour
 public struct TerrainData
 {   
     public TerrainType type;
-    public Sprite sprite;
+    public Sprite[] lowSprites;
+    public Sprite[] highSprites;
+    public AnimSequence highIdle;
+    public AnimSequence lowIdle;
+    public AnimSequence highBump;
+    public AnimSequence lowBump;
 }
-
 
 public enum TerrainType
 {
 	Forest,
 	Grass,
-	Savannah,
+	Jungle,
 	Desert,
 	Tundra,
 	Water, 

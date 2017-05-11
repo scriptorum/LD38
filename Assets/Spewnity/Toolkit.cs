@@ -169,10 +169,17 @@ namespace Spewnity
 			b = temp;
 		}
 
-		// Joins an array of some type into a comma separated string
-		public static string Join<T>(T[] arr, string delim = ",")
+		// Joins an array or list of some type into a comma separated string
+		public static string Join<T>(this IList<T> iList, string delim = ",")
 		{
-			return string.Join(delim, System.Array.ConvertAll<T,string>(arr, x => x.ToString()));
+			string ret = "";
+			foreach(T t in iList)
+			{
+				if(ret != "")
+					ret += ",";
+				ret += t.ToString();
+			}
+			return ret;
 		}
 
 		public static Transform GetChild(this Transform tform, string name)
