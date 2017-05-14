@@ -124,19 +124,4 @@ public class Game : MonoBehaviour
 		running = true;
 		messageBar.showMessage(level.startMessage, level.holdStartMesage);
 	}
-
-	 void OnValidate()
-	{
-		if(catalog == null)
-			catalog = gameObject.GetComponent<TerrainCatalog>();
-
-		// Set up default names for the animation sequences
-		foreach(TerrainData data in catalog.terrainData)
-		{
-			data.highIdle.name = "idle-high";
-			data.lowIdle.name = "idle-low";
-			data.highBump.name = "bump-high";
-			data.lowBump.name = "bump-low";
-		}
-	}
 }

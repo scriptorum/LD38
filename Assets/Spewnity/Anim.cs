@@ -36,7 +36,7 @@ namespace Spewnity
         public string sequenceName;
         public List<AnimSequence> sequences;
         public List<Sprite> frames;
-        public  bool paused = false;        
+        public bool paused = false;        
         public AnimEvent onLoop;
 
         private int frame = 0;
@@ -56,7 +56,9 @@ namespace Spewnity
                 sr = gameObject.AddComponent<SpriteRenderer>();
 #if DEBUG
                 Debug.Log("DEBUG: No SpriteRenderer defined.");
-#endif                
+#endif             
+                if(sequenceName == "")
+                    paused = true;
             }
         }
 
@@ -81,7 +83,7 @@ namespace Spewnity
                 return;
             }
             
-            if (!cache.ContainsKey(name))
+            if (!IsCached(name))
             {
                 Debug.Log(transform.GetFullPath() + "<Anim> cache failed hit for sequence name: " + name);
                 return;
@@ -93,6 +95,11 @@ namespace Spewnity
             elapsed = 0;
             paused = false;
             UpdateView();
+        }
+
+        public bool IsCached(string name)
+        {
+            return cache.ContainsKey(name);
         }
 
         public void Freeze(string name)
@@ -121,6 +128,9 @@ namespace Spewnity
             sr.sprite = null;
         }
 
+        // Known Issue: This is a non-frame-skipping implementation. 
+        // If the FPS is high enough, it will max out displaying 1 frame
+        // per update call, and higher FPS will not change that.
         public void Update()
         {
             if(paused)
@@ -159,10 +169,18 @@ namespace Spewnity
             sr.sprite = frames[cel];
         }
 
-        public void Add(AnimSequence seq)
+        public AnimSequence Add(AnimSequence seq)
         {
             sequences.Add(seq);
             UpdateCache();
+            return seq;
+        }
+
+        public AnimSequence Add(string name, string frames, int fps)
+        {
+            AnimSequence seq = new AnimSequence(name, frames, fps);
+            this.Add(seq);
+            return seq;
         }
 
         /*
@@ -179,41 +197,48 @@ namespace Spewnity
             // Preprocess sequence frames and fps
             foreach (AnimSequence seq in sequences)
             {
-                seq.deltaTime = 1 / seq.fps;
+                seq.deltaTime = 1f / (float) seq.fps;
                 if (seq.deltaTime <= 0)
                     Debug.Log("Illegal fps:" + seq.fps);
-                seq.frameArray = new List<int>();
-                seq.frames = seq.frames.Replace(" ", "");
-                foreach (string element in seq.frames.ToLower().Split(','))
-                {
-                    if (element.Contains("-"))
-                    {
-                        string[] extents = element.Split('-');
-                        Debug.Assert(extents.Length == 2);
-                        int left = int.Parse(extents[0]);
-                        int right = int.Parse(extents[1]);
-                        int order = (right > left ? 1 : -1);
-                        for (int i = left; i != right + order; i += order)
-                            seq.frameArray.Add(i);
-                    }
-                    else if(element.Contains("x"))
-                    {
-                        string[] extents = element.Split('x');
-                        Debug.Assert(extents.Length == 2);
-                        int val = int.Parse(extents[0]);
-                        int repetition = int.Parse(extents[1]);
-                        while(repetition-- > 0)
-                            seq.frameArray.Add(val);
-                    }
-                    else
-                    {
-                        int result = int.Parse(element);
-                        seq.frameArray.Add(result);
-                    }
-                }
-                
-                // Debug.Log("Converted:" + seq.frames + " to " + seq.frameArray.Join());
+                seq.frameArray = GetFramesArray(seq.frames);
             }
+        }
+
+        // Converts a frame string into an array
+        public static List<int> GetFramesArray(string frames)
+        {
+            List<int> result = new List<int>();
+            string str = frames.Replace(" ", "");
+            foreach (string element in str.ToLower().Split(','))
+            {
+                if (element.Contains("-"))
+                {
+                    string[] extents = element.Split('-');
+                    Debug.Assert(extents.Length == 2);
+                    int left = int.Parse(extents[0]);
+                    int right = int.Parse(extents[1]);
+                    int order = (right > left ? 1 : -1);
+                    for (int i = left; i != right + order; i += order)
+                        result.Add(i);
+                }
+                else if(element.Contains("x"))
+                {
+                    string[] extents = element.Split('x');
+                    Debug.Assert(extents.Length == 2);
+                    int val = int.Parse(extents[0]);
+                    int repetition = int.Parse(extents[1]);
+                    while(repetition-- > 0)
+                        result.Add(val);
+                }
+                else
+                {
+                    int val = int.Parse(element);
+                    result.Add(val);
+                }
+            }
+
+            return result;
+            // Debug.Log("Converted:" + seq.frames + " to " + seq.frameArray.Join());
         }
     }
 
@@ -230,6 +255,13 @@ namespace Spewnity
         public List<int> frameArray; // frame string expanded to array
         [HideInInspector]
         public float deltaTime;
+
+        public AnimSequence(string name, string frames, int fps)
+        {
+            this.name = name;
+            this.frames = frames;
+            this.fps = fps;
+        }
     }
 
     [System.Serializable]
