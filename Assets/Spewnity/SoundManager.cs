@@ -4,6 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Audio;
 
+/**
+ * TODO Support global volume setting.
+ */
+
 namespace Spewnity
 {
 	public class SoundManager : MonoBehaviour
@@ -152,10 +156,7 @@ namespace Spewnity
 		// Plays the Sound.
 		public Sound Play(Sound sound, System.Action<Sound> onComplete = null)
 		{			
-			float pitch = sound.pitch + Random.Range(-sound.pitchVariation, sound.pitchVariation);
-			float volume = sound.volume + Random.Range(-sound.volumeVariation, sound.volumeVariation);
-			float pan = sound.pan + Random.Range(-sound.panVariation, sound.panVariation);
-			return PlayAs(sound, pitch, volume, pan, sound.looping, onComplete);
+			return PlayAs(sound, sound.GetPitch(), sound.GetVolume(), sound.GetPan(), sound.looping, onComplete);
 		}
 
 		public Sound PlayAs(string name, float pitch = 1.0f, float volume = 1.0f, float pan = 0.0f, bool loop = false, System.Action<Sound> onComplete = null)
@@ -322,6 +323,23 @@ namespace Spewnity
 
 		[Tooltip("If usePool is false and this is supplied, will use this custom Audio Source.")]
 		public AudioSource source;
+
+		// Returns valid pitch/volume/pan within the range of variation
+
+		public float GetPitch()
+		{
+			return pitch + Random.Range(-pitchVariation, pitchVariation);
+		}
+
+		public float GetVolume()
+		{
+			return volume + Random.Range(-volumeVariation, volumeVariation);
+		}
+
+		public float GetPan()
+		{
+			return pan + Random.Range(-panVariation, panVariation);
+		}		
 	}
 
 

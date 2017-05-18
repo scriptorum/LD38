@@ -11,7 +11,8 @@ public class Terrain : MonoBehaviour
 	private TerrainData data;
 	private Rigidbody2D rb;
 	private List<Terrain> contacts = new List<Terrain>();
-	private static float SFX_IMPACT_MIN = 0.5f;
+	private static float SFX_IMPACT_MIN = 0.8f;
+	private const float IMPACT_SCALER = 1.2f;
 	private Game game;
 	private Anim lowAnim;
 	private Anim highAnim;
@@ -164,7 +165,10 @@ public class Terrain : MonoBehaviour
 		if(c.relativeVelocity.magnitude > SFX_IMPACT_MIN)
 		{
 			string soundName = data.type.ToString();
-			SoundManager.instance.Play(soundName); // Play  bump sound for each terrains 
+			Sound sound = SoundManager.instance.GetSound(soundName);
+			float impactVolume = 0.4f;
+			impactVolume +=  Mathf.Min((1 - impactVolume), (c.relativeVelocity.magnitude - SFX_IMPACT_MIN) * IMPACT_SCALER);
+			SoundManager.instance.PlayAs(sound, sound.GetPitch(), impactVolume);
 			processBehavior(TerrainBehaviorType.OnBump);
 		}
 	}
@@ -188,6 +192,10 @@ public class Terrain : MonoBehaviour
 	public void OnMouseEnter()
 	{
 		processBehavior(TerrainBehaviorType.OnMouseOver);
+
+		string soundName = data.type.ToString();
+		Sound sound = SoundManager.instance.GetSound(soundName);
+		SoundManager.instance.PlayAs(sound, sound.GetPitch(), 0.1f);
 	}		
 
 	public void OnMouseDown()
